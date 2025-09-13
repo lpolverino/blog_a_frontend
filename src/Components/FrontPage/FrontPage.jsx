@@ -1,17 +1,19 @@
 import { useContext, useEffect } from "react"
-import { LogInContext } from "../../Context/logContext"
+import {UserContext} from "../../Context/UserProvider"
 import { useNavigate } from "react-router"
 
 const FrontPage = () => {
-  const {logged} = useContext(LogInContext)
+  const user = useContext(UserContext)
   const navigate  = useNavigate();
 
   useEffect(()=>{
-    if(!logged) navigate("login")
+    console.log(user);
+    
+    if(!user.logged) navigate("/login", {replace:true})
   },[])
 
   return (
-    <div>{logged?"Welcome":"Login"}</div>
+    <div>{user.logged?"Welcome":"Login"}</div>
   )
 }
 

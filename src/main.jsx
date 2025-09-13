@@ -4,24 +4,24 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 
 import FrontPage from './Components/FrontPage/FrontPage';
-import { LogInContext } from './Context/logContext';
+import {UserProvider}  from './Context/UserProvider';
 import LogIn from './Components/LogIn/LogIn';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <FrontPage></FrontPage>,
-    children:[{
-      path:"login",
-      element: <LogIn></LogIn>
-      }]
-  },
+  },{
+
+    path:"/login",
+    element: <LogIn></LogIn>
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <LogInContext value={{logged:false}}>
+    <UserProvider>
       <RouterProvider router={router}></RouterProvider>
-    </LogInContext>
+    </UserProvider>
   </StrictMode>,
 )
