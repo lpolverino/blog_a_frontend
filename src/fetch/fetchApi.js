@@ -1,5 +1,30 @@
-async function submitUser () {
-
+async function submitUser (email, password) {
+    const body = {email,password}
+    try{
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/auth/log-in", {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify(body)
+        });
+        if(!response.ok){
+            const errorData = await response.json();
+            console.log(errorData);
+            if(errorData.errors){
+                throw new AggregateError(
+                    errorData.errors.map(error => new Error(error.msg)),
+                    "Validation Failed"
+                )
+            }
+            throw new Error(`Response status ${response.status}`);
+        }
+        const result = await response.json();
+        return result;
+    } catch(err){
+        if(err instanceof AggregateError) throw err
+        throw new Error(err.message)
+    }
 }
 
 export default {

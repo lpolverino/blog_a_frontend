@@ -3,12 +3,11 @@ import {UserContext} from "../../Context/UserProvider"
 import { useNavigate } from "react-router"
 
 const FrontPage = () => {
-  const user = useContext(UserContext)
+  const {user,setUser} = useContext(UserContext)
   const navigate  = useNavigate();
 
   useEffect(()=>{
-    console.log(user);
-    
+    console.log(user.logged);
     if(!user.logged) navigate("/login", {replace:true})
   },[])
 
