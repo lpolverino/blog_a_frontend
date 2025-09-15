@@ -1,5 +1,8 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Input from "../../Shered/Input/Input";
+import fetchApi from "../../../fetch/fetchApi";
+import { UserContext } from "../../../Context/UserProvider";
+import { replace, useNavigate } from "react-router";
 
 const SignUp = () => {
   
@@ -10,36 +13,40 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const {setUser} = useContext(UserContext);
+    const navigate = useNavigate();
+
     const verifyValues = () =>{
       if(name.length < 4) {
-        setError({message:"Name to short"});
-        return false
+        throw new Error("Name to short");
       }
   
-      if(email.includes("@")){
-        setError({message:"Invalid Email"});
-        return false
+      if(!email.includes("@")){
+        throw new Error("invalid email");
       }
   
       if(password.length<4){
-        setError({message:"password to short"})
-        return false
+        throw new Error("password to short");
       }
   
       if(password != repetedPassword){
-        setError({message:"the password dosent match"})
-        return false
+        throw new Error("password dosent match");
       }
-      return true
     }  
 
     const signUpHandler = async()=>{
       setLoading(true);
-      
-      if(!verifyValues()) return
-
       try{
-
+        verifyValues()
+        const response = await fetchApi.submitNewUser(email, name, password);
+        localStorage.setItem("token",response.token);
+        setUser((user)=>{
+          return {
+            ...user,
+            logged:true,
+          }
+        });
+        navigate("/", {replace:true});
       }catch(err){
         console.error(err);
         setError(err);
