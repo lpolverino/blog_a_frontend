@@ -2,7 +2,8 @@ import { useContext, useState } from "react"
 import Input from "../../Shered/Input/Input";
 import fetchApi from "../../../fetch/fetchApi";
 import { UserContext } from "../../../Context/UserProvider";
-import { replace, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import ErrorInput from "../../Shered/ErrorInput/ErrorInput";
 
 const SignUp = () => {
   
@@ -58,7 +59,9 @@ const SignUp = () => {
     return (
   <div>
     <h1>Sign Up!</h1>
-    <div>{error&&error.message}</div>
+    <div>
+      <ErrorInput error={error}></ErrorInput>
+    </div>
     <div>
       <Input name="name" value={name} setValue={setName} type={"text"}></Input>
       <Input name="email" value={email} setValue={setEmail} type={"text"}></Input>

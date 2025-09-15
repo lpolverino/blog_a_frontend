@@ -3,6 +3,7 @@ import fetchApi from "../../../fetch/fetchApi"
 import { useNavigate } from "react-router";
 import { UserContext } from "../../../Context/UserProvider";
 import Input from "../../Shered/Input/Input";
+import ErrorInput from "../../Shered/ErrorInput/ErrorInput";
 
 const LogIn = () => {
 
@@ -43,11 +44,11 @@ const LogIn = () => {
           </form>
         </div>
         <div>
-          <button onClick={enterHandler}>Enter</button>
-          <button onClick={()=>navigate("/signup")}>Register</button>
+          <button onClick={enterHandler} disabled={loading}>Enter</button>
+          <button onClick={()=>navigate("/signup")} disabled={loading}>Register</button>
         </div>
         <div>
-          {error && error.errors?"muchos errores":"error"}
+          <ErrorInput error={error}></ErrorInput>
         </div>
         <div>
           {loading}
