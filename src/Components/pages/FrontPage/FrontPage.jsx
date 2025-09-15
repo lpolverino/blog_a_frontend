@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import {UserContext} from "../../Context/UserProvider"
+import {UserContext} from "../../../Context/UserProvider"
 import { useNavigate } from "react-router"
 
 const FrontPage = () => {

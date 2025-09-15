@@ -3,10 +3,12 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 
-import FrontPage from './Components/FrontPage/FrontPage';
 import {UserProvider}  from './Context/UserProvider';
-import LogIn from './Components/LogIn/LogIn';
-import NotFound from './Components/404/NorFound';
+
+import FrontPage from './Components/pages/FrontPage/FrontPage';
+import LogIn from './Components/pages/LogIn/LogIn';
+import NotFound from './Components/pages/404/NorFound';
+import SignUp from './Components/pages/SignUp/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,11 @@ const router = createBrowserRouter([
     element: <LogIn></LogIn>,
     errorElement:<NotFound></NotFound>
   },
+  {
+    path:"/signup",
+    element:<SignUp></SignUp>,
+    errorElement:<NotFound></NotFound>
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(

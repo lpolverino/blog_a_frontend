@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
-import fetchApi from "../../fetch/fetchApi"
+import fetchApi from "../../../fetch/fetchApi"
 import { useNavigate } from "react-router";
-import { UserContext } from "../../Context/UserProvider";
+import { UserContext } from "../../../Context/UserProvider";
+import Input from "../../Shered/Input/Input";
 
 const LogIn = () => {
 
@@ -37,15 +38,13 @@ const LogIn = () => {
         <h1>Log In</h1>
         <div>
           <form>
-            <label>Email:</label>
-            <input type='text' onChange={(e)=>setEmail(e.target.value)} value={email}></input>
-            <label>Password</label>
-            <input type='password' value={password} onChange={(e)=>setPassword(e.target.value)} ></input>
+            <Input name={"email"} value={email} setValue={setEmail} type={"text"}></Input>
+            <Input name={"password"} value={password} setValue={setPassword} type={"password"}></Input>
           </form>
         </div>
         <div>
           <button onClick={enterHandler}>Enter</button>
-          <button>Register</button>
+          <button onClick={()=>navigate("/signup")}>Register</button>
         </div>
         <div>
           {error && error.errors?"muchos errores":"error"}
