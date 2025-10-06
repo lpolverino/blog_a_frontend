@@ -1,9 +1,13 @@
 import { useContext, useEffect } from "react"
 import {UserContext} from "../../../Context/UserProvider"
 import { useNavigate } from "react-router"
+import UserFrontPage from "../UserFrontPage/UserFrontPage"
+import AdminFrontPage from "../AdminFrontPage/AdminFrontPage"
+import Footer from "../../Shered/Footer/Footer"
+import Header from "../../Shered/Header/Header"
 
 const FrontPage = () => {
-  const {user,setUser} = useContext(UserContext)
+  const {user, setUser} = useContext(UserContext)
   const navigate  = useNavigate();
 
   useEffect(()=>{
@@ -12,7 +16,14 @@ const FrontPage = () => {
   },[])
 
   return (
-    <div>{user.logged?"Welcome":"Login"}</div>
+    <>
+    <Header></Header>
+    {(user.data && user.data.rol==="USER")
+      ? <UserFrontPage></UserFrontPage>
+      : <AdminFrontPage></AdminFrontPage>
+    }
+    <Footer></Footer>
+    </>
   )
 }
 

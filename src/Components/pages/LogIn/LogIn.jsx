@@ -20,11 +20,13 @@ const LogIn = () => {
     try{
       const response = await fetchApi.submitUser(email, password);
       localStorage.setItem("token", response.token)
+      
       user.setUser((user)=>{
-        return{ ...user,
+        return{
+          user:response.user,
           logged:true}
       });
-
+      
       navigate("/",{replace:true});
     }catch(err){
       console.log(err);
@@ -46,6 +48,7 @@ const LogIn = () => {
         <div>
           <button onClick={enterHandler} disabled={loading}>Enter</button>
           <button onClick={()=>navigate("/signup")} disabled={loading}>Register</button>
+          <button onClick={()=>console.log("Not implemented")}>Enter as a Guess</button>
         </div>
         <div>
           <ErrorInput error={error}></ErrorInput>

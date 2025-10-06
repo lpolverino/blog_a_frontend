@@ -20,6 +20,8 @@ async function submitUser (email, password) {
             throw new Error(`Response status ${response.status}`);
         }
         const result = await response.json();
+        console.log(result);
+        
         return result;
     } catch(err){
         if(err instanceof AggregateError) throw err

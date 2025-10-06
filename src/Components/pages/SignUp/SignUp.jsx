@@ -43,7 +43,7 @@ const SignUp = () => {
         localStorage.setItem("token",response.token);
         setUser((user)=>{
           return {
-            ...user,
+            user: response.user,
             logged:true,
           }
         });
