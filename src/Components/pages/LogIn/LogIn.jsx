@@ -22,7 +22,7 @@ const LogIn = () => {
       localStorage.setItem("token", response.token)
       
       user.setUser((user)=>{
-        return{
+        return {
           user:response.user,
           logged:true}
       });

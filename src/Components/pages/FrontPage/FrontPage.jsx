@@ -18,7 +18,7 @@ const FrontPage = () => {
   return (
     <>
     <Header></Header>
-    {(user.data && user.data.rol==="USER")
+    {(user.user && user.user.rol==="USER")
       ? <UserFrontPage></UserFrontPage>
       : <AdminFrontPage></AdminFrontPage>
     }

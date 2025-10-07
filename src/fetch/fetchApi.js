@@ -59,7 +59,66 @@ async function submitNewUser(email, name, password){
     }
 }
 
+async function getPosts (token){
+    try{
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/post",{
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if(!response.ok){
+            const errorData = await response.json();
+            console.log(errorData);
+            if(errorData.errors){
+                throw new AggregateError(
+                    errorData.errors.map(error => new Error(error.msg)),
+                    "Validation Failed"
+                )
+            }
+            throw new Error(`Response status ${response.status}`);
+        }
+        const result = await response.json();
+        console.log(result);
+    }catch(err){
+        if(err instanceof AggregateError) throw err;
+        throw new Error(err.message);        
+    }
+}
+
+async function getUsers(token){
+    try{
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/user",{
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if(!response.ok){
+            const errorData = await response.json();
+            console.log(errorData);
+            if(errorData.errors){
+                throw new AggregateError(
+                    errorData.errors.map(error => new Error(error.msg)),
+                    "Validation Failed"
+                )
+            }
+            throw new Error(`Response status ${response.status}`);
+        }
+        const result = await response.json();
+        return result;
+     }catch(err){
+        if(err instanceof AggregateError) throw err;
+        throw new Error(err.message);        
+    }
+}
+
+
 export default {
     submitUser,
-    submitNewUser
+    submitNewUser,
+    getPosts,
+    getUsers,
 }
