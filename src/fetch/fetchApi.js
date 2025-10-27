@@ -81,6 +81,7 @@ async function getPosts (token){
         }
         const result = await response.json();
         console.log(result);
+        return result;
     }catch(err){
         if(err instanceof AggregateError) throw err;
         throw new Error(err.message);        

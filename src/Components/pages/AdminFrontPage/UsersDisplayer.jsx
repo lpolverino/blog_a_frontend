@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import fetchApi from "../../../fetch/fetchApi.js";
+import { useNavigate } from "react-router";
 
 const UsersDisplayer = () => {
     const [users, setUsers] = useState([]);
     const [loading, SetLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate()
 
     useEffect(()=>{
      const getUsersData = async () => {
@@ -13,7 +16,7 @@ const UsersDisplayer = () => {
         setUsers(fetchedUsers);
       } catch (err) {
         console.error(err);
-        SetError(err)
+        setError(err)
       } finally {
         SetLoading(false);
       }
@@ -26,7 +29,12 @@ const UsersDisplayer = () => {
             <ul>
                 {users
                 .filter(user => user.rol ==="USER")
-                .map(user => <li key={user.id}>{user.Name}</li>)}
+                .map(user => 
+                  <li
+                    onClick={()=>navigate("/user/"+user.id, {replace:true})}
+                    key={user.id}>
+                      {user.Name}
+                    </li>)}
             </ul>
         </>)
     }
