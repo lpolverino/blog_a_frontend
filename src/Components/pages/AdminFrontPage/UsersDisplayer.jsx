@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import fetchApi from "../../../fetch/fetchApi.js";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const UsersDisplayer = () => {
     const [users, setUsers] = useState([]);
@@ -29,12 +29,14 @@ const UsersDisplayer = () => {
             <ul>
                 {users
                 .filter(user => user.rol ==="USER")
-                .map(user => 
-                  <li
-                    onClick={()=>navigate("/user/"+user.id, {replace:true})}
-                    key={user.id}>
+                .map(user => <li>
+                    <Link
+                      to={"/user/"+user.id}
+                      key={user.id}>
                       {user.Name}
-                    </li>)}
+                      </Link>
+                    </li>
+                )}
             </ul>
         </>)
     }

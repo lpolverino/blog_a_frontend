@@ -15,7 +15,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <FrontPage></FrontPage>,
-    errorElement:<NotFound></NotFound>
+    errorElement:<NotFound></NotFound>,
+    children:[
+      {
+        path:"user/:userId",
+        element:<UserProfile></UserProfile>,
+        errorElement: <NotFound></NotFound>
+      }
+    ]
   },{
     path:"/login",
     element: <LogIn></LogIn>,
@@ -26,11 +33,6 @@ const router = createBrowserRouter([
     element:<SignUp></SignUp>,
     errorElement:<NotFound></NotFound>
   },
-  {
-    path:"/user/*",
-    element:<UserProfile></UserProfile>,
-    errorElement: <NotFound></NotFound>
-  }
 ]);
 
 createRoot(document.getElementById('root')).render(

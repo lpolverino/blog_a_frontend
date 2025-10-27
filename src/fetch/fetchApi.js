@@ -116,10 +116,38 @@ async function getUsers(token){
     }
 }
 
+async function getUser(token, userId) {
+    try{
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/user/"+userId, {
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        const responseJson = await response.json()
+        if(!response.ok){
+             if(responseJson.errors){
+                throw new AggregateError(
+                    errorData.errors.map(error => new Error(error.msg)),
+                    "Validation Failed"
+                )
+            }
+            throw new Error(`Response status ${response.status}`);
+        }
+        console.log(responseJson);
+        
+        return responseJson
+    }catch(err){
+        if(err instanceof AggregateError) throw err;
+        throw new Error(err.message);        
+    }
+}
 
 export default {
     submitUser,
     submitNewUser,
     getPosts,
     getUsers,
+    getUser,
 }
