@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import ErrorInput from "../../Shered/ErrorInput/ErrorInput";
 import fetchApi from "../../../fetch/fetchApi";
+import PostCard from "../../Shered/PostCard/PostCard";
 
 const UserFrontPage = () => {
   const [posts, setPosts] = useState([])
@@ -10,7 +11,8 @@ const UserFrontPage = () => {
   useEffect(() => {
     const getPostsData = async () => {
       try {
-        await fetchApi.getPosts(localStorage.getItem("token"));   
+        const fetchedPost = await fetchApi.getPosts(localStorage.getItem("token"));   
+        setPosts(fetchedPost)
       } catch (err) {
         console.error(err);
         SetError(err)
@@ -26,7 +28,9 @@ const UserFrontPage = () => {
       <div>
         <h2>FrontPage</h2>
           <ul>
-            {posts.map(post => <li id={post.id}>{post.name}</li>)}
+            {posts.map(post => <li key={post.id}>
+              <PostCard post={post}></PostCard>
+            </li>)}
           </ul>
       </div>
     )

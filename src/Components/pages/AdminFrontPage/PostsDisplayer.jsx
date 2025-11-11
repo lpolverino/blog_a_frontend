@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import fetchApi from "../../../fetch/fetchApi";
 import { useNavigate } from "react-router";
+import PostCard from "../../Shered/PostCard/PostCard";
 
 const PostsDisplayer = () => {
 
@@ -29,10 +30,8 @@ const PostsDisplayer = () => {
         return (<>
             <ul>
                 {posts
-                .map(post => <li 
-                  onClick={()=>navigate("/post/"+post.id, {replace:true})}
-                  key={post.id}>
-                    {post.title}
+                .map(post => <li key={post.id}>
+                    <PostCard post={post}></PostCard>
                   </li>)}
             </ul>
         </>)
